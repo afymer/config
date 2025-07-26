@@ -1,0 +1,16 @@
+[env]
+term = "xterm-256color"
+
+[font]
+size = 11.0
+normal = { family = "HackNerdFont Mono", style = "Regular" }
+# normal = { family = "FiraCodeNerdFont Mono", style = "Regular" }
+# normal = { family = "CascadiaCodeMono", style = "Regular" }
+
+[scrolling]
+history = 100000
+multiplier = 100
+
+[colors.primary]
+background = "#000000"
+
