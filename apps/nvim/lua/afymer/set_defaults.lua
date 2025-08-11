@@ -179,3 +179,17 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 --]]
+
+local better_prisma_format = "/home/remy/.config/bin/fmtprisma"
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = "*.prisma",
+	callback = function()
+		os.execute(better_prisma_format)
+
+		local path = vim.api.nvim_buf_get_name(0)
+		vim.cmd("bdelete!")
+		vim.cmd("edit " .. vim.fn.fnameescape(path))
+		vim.cmd("filetype detect")
+	end,
+})

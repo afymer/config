@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"tpope/vim-repeat",
 	},
-	keys = { { "f", mode = "n" } },
+	keys = { { "z", mode = "n" } },
 	config = function()
 		require("leap").set_default_mappings()
 	end,
