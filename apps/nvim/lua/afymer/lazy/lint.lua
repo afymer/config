@@ -5,6 +5,7 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local lint = require("lint")
+			-- lint.try_lint(nil, { ignore_erros = true })
 			lint.linters_by_ft = {
 				markdown = { "markdownlint" },
 			}
