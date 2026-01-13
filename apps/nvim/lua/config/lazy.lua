@@ -28,6 +28,8 @@ opt.expandtab = true
 opt.number = true
 opt.relativenumber = true
 
+opt.clipboard = "unnamedplus"
+
 vim.diagnostic.config({
     virtual_text = true,
     signs = false,
