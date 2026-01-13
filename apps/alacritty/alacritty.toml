@@ -1,6 +1,11 @@
 [env]
 term = "xterm-256color"
 
+# [general]
+# import = [
+# 	"~/.config/alacritty/alacritty-theme/themes/acme.toml"
+# ]
+
 [font]
 size = 11.0
 normal = { family = "HackNerdFont Mono", style = "Regular" }
