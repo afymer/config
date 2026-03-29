@@ -30,6 +30,12 @@ opt.relativenumber = true
 
 opt.clipboard = "unnamedplus"
 
+vim.filetype.add({
+    extension = {
+        mdx = 'mdx'
+    }
+})
+
 vim.diagnostic.config({
     virtual_text = true,
     signs = false,

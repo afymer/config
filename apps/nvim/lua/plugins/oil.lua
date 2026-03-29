@@ -26,7 +26,7 @@ return {
                     -- ["g?"] = { "actions.show_help", mode = "n" },
                     -- ["<C-p>"] = "actions.preview",
                     -- ["<C-c>"] = { "actions.close", mode = "n" },
-                    -- ["<C-l>"] = "actions.refresh",
+                    ["<C-l>"] = "actions.refresh",
                     -- ["_"] = { "actions.open_cwd", mode = "n" },
                     -- ["`"] = { "actions.cd", mode = "n" },
                     -- ["g~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },

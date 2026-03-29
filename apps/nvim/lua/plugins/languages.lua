@@ -44,6 +44,25 @@ return {
             },
             format_on_save = { timeout_ms = 500, lsp_fallback = true },
         },
+    },
+    {
+        "davidmh/mdx.nvim",
+        lazy = false,
+        dependencies = {"nvim-treesitter/nvim-treesitter"}
+    },
+    {
+        'chomosuke/typst-preview.nvim',
+        lazy = false, -- or ft = 'typst'
+        version = '1.*',
+        opts = {}, -- lazy.nvim will implicitly calls `setup {}`
     }
+    -- {
+    --     "benlubas/molten-nvim",
+    --     build = ":UpdateRemotePlugins",
+    --     init = function()
+    --         vim.g.molten_image_provider = "kitty" -- or "ueberzug"
+    --         vim.g.molten_output_win_max_height = 20
+    --     end,
+    -- },
 }
 
