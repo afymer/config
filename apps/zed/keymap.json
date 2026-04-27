@@ -1,0 +1,46 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    // Override tab switcher with its annoying preview pane
+    "context": "Pane",
+    "bindings": {
+      "ctrl-tab": "pane::ActivateNextItem",
+      "ctrl-shift-tab": "pane::ActivatePreviousItem"
+    }
+  },
+  {
+    "bindings": {
+      "alt-o": "editor::SwitchSourceHeader"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-right": "pane::GoForward"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-left": "pane::GoBack"
+    }
+  }
+]

@@ -1,0 +1,149 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+    "outline_panel": {
+        "dock": "left"
+    },
+    "collaboration_panel": {
+        "dock": "left"
+    },
+    "git_panel": {
+        "dock": "left"
+    },
+    "session": {
+        "trust_all_worktrees": true
+    },
+    "show_edit_predictions": true,
+    "agent": {
+        "dock": "right",
+        "favorite_models": [],
+        "model_parameters": [],
+        "enable_feedback": false,
+    },
+    "agent_servers": {
+        "gemini": {
+            "type": "registry",
+        },
+    },
+    "languages": {
+        "JSON": {
+            "tab_size": 4,
+        },
+        "JSONC": {
+            "tab_size": 4,
+        },
+    },
+    "inline_code_actions": true,
+    "show_completion_documentation": true,
+    "gutter": {
+        "runnables": true,
+    },
+    "drag_and_drop_selection": {
+        "enabled": false,
+    },
+    "helix_mode": false,
+    "rounded_selection": false,
+    "selection_highlight": true,
+    "current_line_highlight": "all",
+    "unnecessary_code_fade": 0.5,
+    "cursor_blink": false,
+    "buffer_line_height": "standard",
+    "auto_update": false,
+    "use_system_path_prompts": true,
+    "use_system_prompts": false,
+    "calls": {
+        "mute_on_join": true,
+    },
+    "git": {
+        "inline_blame": {
+            "enabled": false,
+        },
+    },
+    "zoomed_padding": true,
+    "bottom_dock_layout": "contained",
+    "search": {
+        "regex": true,
+        "button": false,
+    },
+    "terminal": {
+        "button": false,
+    },
+    "status_bar": {
+        "active_language_button": true,
+    },
+    "project_panel": {
+        "dock": "left",
+        "button": true,
+    },
+    "diagnostics": {
+        "button": true,
+        "inline": {
+            "min_column": 0,
+            "padding": 10,
+            "update_debounce_ms": 100,
+            "enabled": true,
+        },
+    },
+    "colorize_brackets": false,
+    "extend_comment_on_newline": false,
+    "middle_click_paste": false,
+    "inlay_hints": {
+        "scroll_debounce_ms": 20,
+        "edit_debounce_ms": 200,
+        "show_background": false,
+        "enabled": true,
+    },
+    "vim_mode": false,
+    "title_bar": {
+        "show_branch_icon": false,
+        "show_project_items": false,
+        "show_sign_in": false,
+        "show_user_picture": false,
+        "show_onboarding_banner": false,
+        "show_menus": false,
+        "show_branch_name": false,
+    },
+    "preview_tabs": {
+        "enabled": false,
+    },
+    "tabs": {
+        "file_icons": true,
+        "git_status": false,
+        "show_close_button": "hidden",
+        "show_diagnostics": "all",
+        "activate_on_close": "left_neighbour",
+    },
+    "tab_bar": {
+        "show_tab_bar_buttons": false,
+        "show_nav_history_buttons": false,
+        "show": true,
+    },
+    "cursor_shape": "bar",
+    "icon_theme": {
+        "mode": "dark",
+        "light": "Colored Zed Icons Theme Dark",
+        "dark": "Colored Zed Icons Theme Dark"
+    },
+    "disable_ai": true,
+    "base_keymap": "VSCode",
+    "minimap": {
+        "show": "auto",
+    },
+    "telemetry": {
+        "diagnostics": true,
+        "metrics": false,
+    },
+    "ui_font_size": 16,
+    "buffer_font_size": 15,
+    "theme": {
+        "mode": "dark",
+        "light": "One Light",
+        "dark": "VSCode Dark Polished",
+    },
+}
