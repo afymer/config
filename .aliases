@@ -1,0 +1,44 @@
+alias i="paru -S"
+alias update="paru"
+alias ui="paru -R"
+alias v="nvim"
+alias cls="clear"
+alias code="codium"
+alias b="btop"
+alias lss="du -ah --max-depth=1 2>/dev/null| sort -rh"
+alias f="stty sane"
+alias x="xmake"
+alias gs="git status"
+alias xr="xmake run"
+alias ls="eza --icons --git -g --no-time --group-directories-first"
+alias lsa="ls -lha -a"
+alias r=". ~/.config/.zshrc"
+alias vv="v ."
+alias ipa="ip a | grep wlan -A 3"
+alias condenable="source /opt/miniconda3/etc/profile.d/conda.sh"
+alias c=cargo
+alias cr="cargo run"
+alias cb="cargo build"
+
+alias g=git
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gl="git pull"
+alias gg="git graph"
+alias o="xdg-open"
+
+alias iws="sudo iwctl station wlan0 scan && sudo iwctl station wlan0 get-networks"
+# alias iwc="sudo iwctl station wlan0 connect"
+
+iwc() {
+    sudo iwctl station wlan0 connect "$@"
+}
+
+_iwc_completion() {
+    words=(iwctl station wlan0 connect "${words[@]:1}")
+    CURRENT=$((CURRENT + 3))
+    _iwctl
+}
+
+compdef _iwc_completion iwc

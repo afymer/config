@@ -1,0 +1,22 @@
+export GTK_THEME=Adwaita:dark
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_STATE_HOME=$HOME/.local/state
+
+export GPG_TTY=$(tty)
+
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/data/config/scripts/:$PATH"
+export PATH="$HOME/apps:$PATH"
+export PATH="$HOME/lib/emsdk:$PATH"
+export PATH="$HOME/lib/emsdk/upstream/emscripten:$PATH"
+
