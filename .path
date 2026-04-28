@@ -3,6 +3,7 @@ export GTK_THEME=Adwaita:dark
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_STATE_HOME=$HOME/.local/state
+export XDG_DATA_HOME=$HOME/.local/share
 
 export GPG_TTY=$(tty)
 
@@ -11,6 +12,8 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+export GOPATH="$XDG_DATA_HOME/go"
 
 
 export PATH="$HOME/.cargo/bin:$PATH"

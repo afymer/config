@@ -1,1 +1,2 @@
 export CRYPTOGRAPHY_OPENSSL_NO_LEGACY=1
+export CARGO_HOME="$HOME/.config/cargo"
