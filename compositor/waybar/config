@@ -1,0 +1,69 @@
+{
+    "output": "eDP-1",
+    "layer": "bottom",
+    "position": "top",
+    "reload_style_on_change": true,
+    "start_hidden": true,
+    "modules-left": [
+        "clock"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "network",
+        "cpu",
+        "temperature",
+        "battery"
+    ],
+    "custom/notification": {
+        "tooltip": false,
+        "format": "",
+        "on-click": "swaync-client -t -sw",
+        "escape": true
+    },
+    "clock": {
+        "format": "{:L%H:%M:%S}",
+        "interval": 1,
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "format": {
+                "today": "<span color='#fAfBfC'><b>{}</b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "shift_down",
+            "on-click": "shift_up"
+        }
+    },
+    "cpu": {
+        "format": "{usage}",
+        "interval": 1
+    },
+    "network": {
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-disconnected": "",
+        "tooltip-format-disconnected": "Error",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} 🖧 ",
+        "on-click": "alacritty"
+    },
+    "battery": {
+        "interval": 60,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{capacity} {icon}",
+        "format-charging": "{capacity} 󰂄",
+        "format-plugged": "{capacity} 󰂄 ",
+        "format-alt": "{time} {icon}"
+    },
+    "temperature": {
+        "hwmon-path" : "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon4/temp1_input",
+        "format": "{temperatureC}",
+        "interval": 1
+    }
+}
