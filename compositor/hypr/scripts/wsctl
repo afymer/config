@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# usage:
+#   wsctl switch <index>
+#   wsctl move   <index>
+
+mode="$1"
+i="$2"
+
+if [ -z "$mode" ] || [ -z "$i" ]; then
+    exit 1
+fi
+
+focused=$(hyprctl monitors -j | jq -r '.[] | select(.focused==true).name')
+
+case "$focused" in
+    HDMI-A-1)
+        base=1000
+        ;;
+    eDP-1)
+        base=1
+        ;;
+    *)
+        base=1
+        ;;
+esac
+
+target=$((base + i))
+
+if [ "$mode" = "switch" ]; then
+    hyprctl dispatch workspace "$target"
+elif [ "$mode" = "move" ]; then
+    hyprctl dispatch movetoworkspace "$target"
+fi
+
