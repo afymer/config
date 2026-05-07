@@ -1,3 +1,8 @@
+export PROFILING_MODE=0
+if [ $PROFILING_MODE -ne 0 ]; then
+    zmodload zsh/zprof
+fi
+
 export ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump"
 
 ZSH_DISABLE_COMPFIX="true" 
@@ -26,3 +31,8 @@ export GPG_TTY=$(tty)
 eval "$(zoxide init zsh)"
 
 eval "$(keychain --dir ~/.config/keychain --eval --quiet)"
+
+if [ $PROFILING_MODE -ne 0 ]; then
+    zprof
+fi
+
