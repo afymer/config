@@ -10,25 +10,30 @@
     "context": "Workspace",
     "bindings": {
       // "shift shift": "file_finder::Toggle"
-    }
+    },
   },
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
       // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-enter": "editor::GoToDefinition"
     }
   },
   {
-    // Override tab switcher with its annoying preview pane
-    "context": "Pane",
-    "bindings": {
-      "ctrl-tab": "pane::ActivateNextItem",
-      "ctrl-shift-tab": "pane::ActivatePreviousItem"
+    "context": "Editor",
+    "unbind": {
+      "f12": "editor::GoToDefinition"
     }
   },
   {
-    "bindings": {
-      "alt-o": "editor::SwitchSourceHeader"
+    "context": "Editor",
+      "bindings": {
+      "alt-left": "pane::GoBack"
     }
   },
   {
@@ -38,9 +43,35 @@
     }
   },
   {
-    "context": "Editor",
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-shift-tab": [
+        "tab_switcher::Toggle",
+        {
+          "select_last": true
+        }
+      ]
+    }
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-tab": "tab_switcher::Toggle"
+    }
+  },
+  {
     "bindings": {
-      "alt-left": "pane::GoBack"
+      "ctrl-tab": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-shift-tab": "pane::ActivatePreviousItem"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-shift-v": "workspace::ToggleVimMode"
     }
   }
 ]
