@@ -9,6 +9,12 @@
 {
   "cli_default_open_behavior": "new_window",
   "languages": {
+    "YAML": {
+      "tab_size": 4
+    },
+    "Typst": {
+      "tab_size": 2
+    },
     "JSON": {
       "tab_size": 4
     },
