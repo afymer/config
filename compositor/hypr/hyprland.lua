@@ -1,4 +1,6 @@
-require("hyprland.startup")
-require("hyprland.env")
 require("hyprland.monitors")
+require("hyprland.env")
 require("hyprland.variables")
+require("hyprland.startup")
+require("hyprland.keybinds")
+require("hyprland.rules")
