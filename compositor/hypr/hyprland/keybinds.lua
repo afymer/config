@@ -10,6 +10,8 @@ local vscode       = "cursor"
 local zed          = "zeditor"
 local hyprlock     = "hyprlock"
 local colorpicker  = "hyprpicker"
+local media_feedback = "bash $HOME/.config/hypr/scripts/media-feedback.sh"
+local screenshot   = require("hyprland.screenshot")
 
 local search_cmd   =
     "tofi-drun"
@@ -161,47 +163,24 @@ hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(
 
 
 -- Misc
--- hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m region -z"))
--- hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m window -z"))
--- hl.bind("SHIFT + PRINT",
---     hl.dsp.exec_cmd(
---         'grim - | satty --fullscreen -f - --copy-command wl-copy -o "~/hdata/pictures/screenshots/%Y%m%d_%H%M%S.png"'))
--- hl.bind("PRINT",
---     hl.dsp.exec_cmd(
---         'grim -g "$(slurp)" - | satty -f - --copy-command wl-copy -o "~/hdata/pictures/screenshots/%Y%m%d_%H%M%S.png"'))
-
-hl.bind("SHIFT + PRINT",
-    hl.dsp.exec_cmd('sh -c \'f="$HOME/hdata/pictures/screenshots/$(date +%Y%m%d_%H%M%S).png"; grim "$f"; wl-copy < "$f"; ln -sf "$f" "$HOME/hdata/pictures/screenshots/latest.png"\'')
-)
-
-hl.bind("PRINT",
-    hl.dsp.exec_cmd('sh -c \'f="$HOME/hdata/pictures/screenshots/$(date +%Y%m%d_%H%M%S).png"; grim -g "$(slurp)" "$f"; wl-copy < "$f"; ln -sf "$f" "$HOME/hdata/pictures/screenshots/latest.png"\'')
-)
-
-hl.bind("SUPER + PRINT",
-    hl.dsp.exec_cmd('sh -c \'[ -f "$HOME/hdata/pictures/screenshots/latest.png" ] && satty -f "$HOME/hdata/pictures/screenshots/latest.png" --copy-command wl-copy -o "$HOME/hdata/pictures/screenshots/%Y%m%d_%H%M%S_edit.png"\'')
-)
+hl.bind("SHIFT + PRINT", screenshot.capture_fullscreen_screenshot)
+hl.bind("PRINT", screenshot.capture_region_screenshot)
+hl.bind(mainMod .. " + PRINT", screenshot.edit_latest_screenshot)
+hl.bind(mainMod .. " + SHIFT + PRINT", screenshot.capture_fullscreen_and_edit_screenshot)
 
 local media_opts = { locked = true, repeating = true }
 local locked     = { locked = true }
 
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), media_opts)
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), media_opts)
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(media_feedback .. " volume 5%+"), media_opts)
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(media_feedback .. " volume 5%-"), media_opts)
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), locked)
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), locked)
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 10%+"), media_opts)
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 10%-"), media_opts)
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(media_feedback .. " brightness 10%+"), media_opts)
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(media_feedback .. " brightness 10%-"), media_opts)
 
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("wpaperctl next-wallpaper"))
 hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("makoctl mode -t dnd"))
 
-
--- I don't use swayosd anymore, kept in case...
--- hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd --output-volume raise"),
---     { repeating = true, non_consuming = true })
--- hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd --output-volume lower"),
---     { repeating = true, non_consuming = true })
--- hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd --output-volume mute-toggle"), { non_consuming = true })
 
 -- Media
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("playerctl next"), locked)

@@ -11,6 +11,7 @@ hl.on("hyprland.start", function()
     -- Misc
     hl.exec_cmd("uwsm app -- mako")
     hl.exec_cmd("uwsm app -- waybar")
+    hl.exec_cmd("uwsm app -- hyprosd")
 
     -- Fixed using a systemd unit, kept just in case...
     -- hl.exec_cmd("pactl set-sink-mute @DEFAULT_SINK@ 0")
