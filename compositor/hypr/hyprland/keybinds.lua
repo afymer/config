@@ -6,7 +6,7 @@ local mainMod      = "SUPER"
 local terminal     = "alacritty"
 local fileManager  = "nautilus"
 local browser      = "zen-browser"
-local vscode       = "codium"
+local vscode       = "cursor"
 local zed          = "zeditor"
 local hyprlock     = "hyprlock"
 local colorpicker  = "hyprpicker"
@@ -161,8 +161,26 @@ hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(
 
 
 -- Misc
-hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m region -z"))
-hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m window -z"))
+-- hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m region -z"))
+-- hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m window -z"))
+-- hl.bind("SHIFT + PRINT",
+--     hl.dsp.exec_cmd(
+--         'grim - | satty --fullscreen -f - --copy-command wl-copy -o "~/hdata/pictures/screenshots/%Y%m%d_%H%M%S.png"'))
+-- hl.bind("PRINT",
+--     hl.dsp.exec_cmd(
+--         'grim -g "$(slurp)" - | satty -f - --copy-command wl-copy -o "~/hdata/pictures/screenshots/%Y%m%d_%H%M%S.png"'))
+
+hl.bind("SHIFT + PRINT",
+    hl.dsp.exec_cmd('sh -c \'f="$HOME/hdata/pictures/screenshots/$(date +%Y%m%d_%H%M%S).png"; grim "$f"; wl-copy < "$f"; ln -sf "$f" "$HOME/hdata/pictures/screenshots/latest.png"\'')
+)
+
+hl.bind("PRINT",
+    hl.dsp.exec_cmd('sh -c \'f="$HOME/hdata/pictures/screenshots/$(date +%Y%m%d_%H%M%S).png"; grim -g "$(slurp)" "$f"; wl-copy < "$f"; ln -sf "$f" "$HOME/hdata/pictures/screenshots/latest.png"\'')
+)
+
+hl.bind("SUPER + PRINT",
+    hl.dsp.exec_cmd('sh -c \'[ -f "$HOME/hdata/pictures/screenshots/latest.png" ] && satty -f "$HOME/hdata/pictures/screenshots/latest.png" --copy-command wl-copy -o "$HOME/hdata/pictures/screenshots/%Y%m%d_%H%M%S_edit.png"\'')
+)
 
 local media_opts = { locked = true, repeating = true }
 local locked     = { locked = true }

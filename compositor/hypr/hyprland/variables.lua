@@ -10,8 +10,11 @@ hl.config({
     },
 
     misc = {
-        disable_hyprland_logo = true,
-        enable_anr_dialog     = false,
+        disable_hyprland_logo    = true,
+        disable_splash_rendering = true,
+        force_default_wallpaper  = 0,
+        disable_autoreload       = true,
+        enable_anr_dialog        = false,
     },
 
     ecosystem = {
