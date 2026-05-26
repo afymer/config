@@ -117,17 +117,28 @@ local function fullscreen_capture_command()
     }, "; ")
 end
 
-local function region_capture_command()
+local function selection_capture_command(mode, geometry_command)
     return table.concat({
         "mkdir -p " .. sh_quote(screenshot_dir) .. " || exit 1",
-        'g="$(slurp)"',
+        'g="$(' .. geometry_command .. ')"',
         '[ -n "$g" ] || exit 0',
         'f="' .. next_screenshot_path_shell() .. '"',
         'grim -g "$g" "$f"',
         'wl-copy < "$f"',
         'ln -sfn "$f" ' .. sh_quote(latest_screenshot),
-        'printf "mode=region\ngeometry=%s\n" "$g" > ' .. sh_quote(latest_screenshot_meta),
+        'printf "mode=' .. mode .. '\\ngeometry=%s\\n" "$g" > ' .. sh_quote(latest_screenshot_meta),
     }, "; ")
+end
+
+local function region_capture_command()
+    return selection_capture_command("region", "slurp")
+end
+
+local function window_capture_command()
+    return selection_capture_command(
+        "window",
+        [[hyprctl monitors -j | jq -r 'map(select(.focused == true)) | first | [.id, .activeWorkspace.id] | @tsv' | { read -r mon ws && [ -n "$mon" ] && [ -n "$ws" ] && hyprctl clients -j | jq -r --argjson mon "$mon" --argjson ws "$ws" '.[] | select(.mapped == true and .hidden == false and .monitor == $mon and (.workspace.id == $ws or .pinned == true)) | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"'; } | slurp]]
+    )
 end
 
 function M.capture_fullscreen_screenshot()
@@ -136,6 +147,10 @@ end
 
 function M.capture_region_screenshot()
     hl.exec_cmd(region_capture_command())
+end
+
+function M.capture_window_screenshot()
+    hl.exec_cmd(window_capture_command())
 end
 
 function M.capture_fullscreen_and_edit_screenshot()

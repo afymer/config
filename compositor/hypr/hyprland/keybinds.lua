@@ -165,6 +165,7 @@ hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(
 -- Misc
 hl.bind("SHIFT + PRINT", screenshot.capture_fullscreen_screenshot)
 hl.bind("PRINT", screenshot.capture_region_screenshot)
+hl.bind("ALT + PRINT", screenshot.capture_window_screenshot)
 hl.bind(mainMod .. " + PRINT", screenshot.edit_latest_screenshot)
 hl.bind(mainMod .. " + SHIFT + PRINT", screenshot.capture_fullscreen_and_edit_screenshot)
 
@@ -173,7 +174,7 @@ local locked     = { locked = true }
 
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(media_feedback .. " volume 5%+"), media_opts)
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(media_feedback .. " volume 5%-"), media_opts)
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), locked)
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(media_feedback .. " volume mute-toggle"), locked)
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), locked)
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(media_feedback .. " brightness 10%+"), media_opts)
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(media_feedback .. " brightness 10%-"), media_opts)
