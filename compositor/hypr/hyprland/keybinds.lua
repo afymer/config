@@ -1,6 +1,6 @@
 local mainMod      = "SUPER"
 
--- Apps are launched using uwsm app so they live in separate systemd scope units
+-- Apps are launched using uwsm-app so they live in separate systemd scope units
 -- This prevents the OOM killer from targeting the compositor
 
 local terminal     = "alacritty"
@@ -17,7 +17,7 @@ local search_cmd   =
     "tofi-drun"
     .. " --font /home/remy/.local/share/fonts/FiraCode/FiraCodeNerdFont-Regular.ttf"
     .. " --hint-font false"
-    .. " | xargs uwsm app --"
+    .. " | xargs -r uwsm-app --"
 
 -- Workspace base offset per monitor.
 local monitor_base = {
@@ -113,6 +113,7 @@ hl.bind(mainMod .. " + CTRL + SHIFT + S", hl.dsp.window.move({ workspace = "+0" 
 
 hl.bind(mainMod .. " + CTRL + K", hl.dsp.workspace.toggle_special("keepass"))
 hl.bind(mainMod .. " + CTRL + O", hl.dsp.workspace.toggle_special("obsidian"))
+hl.bind(mainMod .. " + CTRL + E", hl.dsp.workspace.toggle_special("zen"))
 hl.bind(mainMod .. " + CTRL + B", hl.dsp.workspace.toggle_special("beeper"))
 hl.bind(mainMod .. " + CTRL + T", hl.dsp.workspace.toggle_special("thunderbird"))
 
@@ -149,12 +150,12 @@ hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ workspace = "r-1" }))
 
 
 -- Apps
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("uwsm app -- " .. terminal))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("uwsm app -- " .. vscode))
-hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("uwsm app -- " .. zed))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. browser))
-hl.bind(mainMod .. " + F", hl.dsp.exec_cmd("uwsm app -- " .. fileManager))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("uwsm app -- bluetoothctl"))
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("uwsm-app -- " .. terminal))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("uwsm-app -- " .. vscode))
+hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("uwsm-app -- " .. zed))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm-app -- " .. browser))
+hl.bind(mainMod .. " + F", hl.dsp.exec_cmd("uwsm-app -- " .. fileManager))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("uwsm-app -- bluetoothctl"))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(search_cmd))
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd(colorpicker .. " -la"))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(

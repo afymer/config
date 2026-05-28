@@ -37,3 +37,11 @@ hl.window_rule({
     match     = { class = "obsidian" },
     workspace = "special:obsidian",
 })
+
+-- Zen
+hl.window_rule({
+    name      = "keep-zen-away",
+    match     = { class = "zen" },
+    workspace = "special:zen",
+})
+
