@@ -37,6 +37,10 @@ current_brightness() {
   }'
 }
 
+dnd_enabled() {
+  makoctl mode | grep -Fxq 'dnd'
+}
+
 show_volume_osd() {
   local value
 
@@ -65,8 +69,23 @@ case "$kind" in
     brightnessctl s "$action"
     hyprosdctl --kind brightness "$(current_brightness)"
     ;;
+  dnd)
+    if [[ "$action" != "toggle" ]]; then
+      echo "usage: $0 dnd toggle" >&2
+      exit 1
+    fi
+
+    makoctl mode -t dnd
+
+    if dnd_enabled; then
+      hyprosdctl dnd on
+      exit 0
+    fi
+
+    hyprosdctl dnd off
+    ;;
   *)
-    echo "usage: $0 <volume|brightness> <action>" >&2
+    echo "usage: $0 <volume|brightness|dnd> <action>" >&2
     exit 1
     ;;
 esac

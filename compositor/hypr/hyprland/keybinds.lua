@@ -180,7 +180,7 @@ hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(media_feedback .. " brightness 10
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(media_feedback .. " brightness 10%-"), media_opts)
 
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("wpaperctl next-wallpaper"))
-hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("makoctl mode -t dnd"))
+hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd(media_feedback .. " dnd toggle"))
 
 
 -- Media
