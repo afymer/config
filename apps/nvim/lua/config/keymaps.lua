@@ -16,3 +16,5 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<C-l>", "<C-w>l")
 
 map('n', 'gd', vim.lsp.buf.definition)
+
+map("c", "w!!", "w !sudo tee % > /dev/null")
