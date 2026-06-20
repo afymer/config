@@ -17,7 +17,7 @@ fi
 export GOPATH="$XDG_DATA_HOME/go"
 
 
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/share/cargo/bin:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/data/config/scripts/:$PATH"
 export PATH="$HOME/apps:$PATH"
