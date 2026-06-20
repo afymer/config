@@ -1,0 +1,5 @@
+column_width = 100
+quote_style = "AutoPreferSingle"
+collapse_simple_statement = "Always"
+indent_type = "Spaces"
+indent_width = 8
