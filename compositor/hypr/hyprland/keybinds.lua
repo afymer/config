@@ -1,4 +1,5 @@
 local mainMod      = "SUPER"
+local altgr        = "MOD5"
 
 -- Apps are launched using uwsm-app so they live in separate systemd scope units
 -- This prevents the OOM killer from targeting the compositor
@@ -18,6 +19,9 @@ local search_cmd   =
     .. " --font /home/remy/.local/share/fonts/FiraCode/FiraCodeNerdFont-Regular.ttf"
     .. " --hint-font false"
     .. " | xargs -r uwsm-app --"
+
+local media_opts   = { locked = true, repeating = true }
+local locked       = { locked = true }
 
 -- Workspace base offset per monitor.
 local monitor_base = {
@@ -63,11 +67,6 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("killall -SIGUSR1 waybar"))
 
 -- Focus
-hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
-
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
@@ -76,31 +75,51 @@ hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 hl.bind("ALT + Tab", hl.dsp.window.cycle_next())
 hl.bind("ALT + SHIFT + Tab", hl.dsp.window.cycle_next({ prev = true }))
 
+-- Move window in dwindle tree
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
+
+-- hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.move({ direction = "up" }))
+-- hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.move({ direction = "down" }))
+-- hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.move({ direction = "left" }))
+-- hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+
+-- Dwindle layout messages
+hl.bind(mainMod .. " + RETURN", hl.dsp.layout("movetoroot"))
+hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.layout("togglesplit"))
+
 -- Window resizing
 local step        = 20
 local step_big    = 80
 
 local resize_opts = { repeating = true }
 
-hl.bind(mainMod .. " + ALT + h", hl.dsp.window.resize({ x = -step, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + l", hl.dsp.window.resize({ x = step, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + k", hl.dsp.window.resize({ x = 0, y = -step }), resize_opts)
-hl.bind(mainMod .. " + ALT + j", hl.dsp.window.resize({ x = 0, y = step }), resize_opts)
+hl.define_submap("resize", function()
+    hl.bind("h", hl.dsp.window.resize({ x = -step, y = 0, relative = true }), resize_opts)
+    hl.bind("l", hl.dsp.window.resize({ x = step, y = 0, relative = true }), resize_opts)
+    hl.bind("k", hl.dsp.window.resize({ x = 0, y = -step, relative = true }), resize_opts)
+    hl.bind("j", hl.dsp.window.resize({ x = 0, y = step, relative = true }), resize_opts)
+    hl.bind("SHIFT + h", hl.dsp.window.resize({ x = -step_big, y = 0, relative = true }), resize_opts)
+    hl.bind("SHIFT + l", hl.dsp.window.resize({ x = step_big, y = 0, relative = true }), resize_opts)
+    hl.bind("SHIFT + k", hl.dsp.window.resize({ x = 0, y = -step_big, relative = true }), resize_opts)
+    hl.bind("SHIFT + j", hl.dsp.window.resize({ x = 0, y = step_big, relative = true }), resize_opts)
+    hl.bind("RETURN", hl.dsp.submap("reset"))
+    hl.bind("ESCAPE", hl.dsp.submap("reset"))
+end)
 
-hl.bind(mainMod .. " + ALT + SHIFT + h", hl.dsp.window.resize({ x = -step_big, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + SHIFT + l", hl.dsp.window.resize({ x = step_big, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + SHIFT + k", hl.dsp.window.resize({ x = 0, y = -step_big }), resize_opts)
-hl.bind(mainMod .. " + ALT + SHIFT + j", hl.dsp.window.resize({ x = 0, y = step_big }), resize_opts)
+hl.bind(mainMod .. " + r", hl.dsp.submap("resize"))
 
-hl.bind(mainMod .. " + ALT + left", hl.dsp.window.resize({ x = -step, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + right", hl.dsp.window.resize({ x = step, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + up", hl.dsp.window.resize({ x = 0, y = -step }), resize_opts)
-hl.bind(mainMod .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = step }), resize_opts)
-
-hl.bind(mainMod .. " + ALT + SHIFT + left", hl.dsp.window.resize({ x = -step_big, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + SHIFT + right", hl.dsp.window.resize({ x = step_big, y = 0 }), resize_opts)
-hl.bind(mainMod .. " + ALT + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -step_big }), resize_opts)
-hl.bind(mainMod .. " + ALT + SHIFT + down", hl.dsp.window.resize({ x = 0, y = step_big }), resize_opts)
+-- Old resize bindings (SUPER+ALT chord fallback)
+-- hl.bind(mainMod .. " + ALT + h", hl.dsp.window.resize({ x = -step, y = 0 }), resize_opts)
+-- hl.bind(mainMod .. " + ALT + l", hl.dsp.window.resize({ x = step, y = 0 }), resize_opts)
+-- hl.bind(mainMod .. " + ALT + k", hl.dsp.window.resize({ x = 0, y = -step }), resize_opts)
+-- hl.bind(mainMod .. " + ALT + j", hl.dsp.window.resize({ x = 0, y = step }), resize_opts)
+-- hl.bind(mainMod .. " + ALT + SHIFT + h", hl.dsp.window.resize({ x = -step_big, y = 0 }), resize_opts)
+-- hl.bind(mainMod .. " + ALT + SHIFT + l", hl.dsp.window.resize({ x = step_big, y = 0 }), resize_opts)
+-- hl.bind(mainMod .. " + ALT + SHIFT + k", hl.dsp.window.resize({ x = 0, y = -step_big }), resize_opts)
+-- hl.bind(mainMod .. " + ALT + SHIFT + j", hl.dsp.window.resize({ x = 0, y = step_big }), resize_opts)
 
 -- Resizing windows with mouse
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -119,16 +138,16 @@ hl.bind(mainMod .. " + CTRL + T", hl.dsp.workspace.toggle_special("thunderbird")
 
 
 local azerty_keys = {
-    "ampersand",  -- 0 → ws 1 or 1000
-    "eacute",     -- 1 → ws 2 or 1001
-    "quotedbl",   -- 2 → ws 3 or 1002
-    "apostrophe", -- 3 → ws 4 or 1003
-    "parenleft",  -- 4 → ws 5 or 1004
-    "minus",      -- 5 → ws 6 or 1005
-    "egrave",     -- 6 → ws 7 or 1006
-    "underscore", -- 7 → ws 8 or 1007
-    "ccedilla",   -- 8 → ws 9 or 1008
-    "agrave",     -- 9 → ws 10 or 1009
+    "ampersand",  -- 0 -> ws 1 or 1000
+    "eacute",     -- 1 -> ws 2 or 1001
+    "quotedbl",   -- 2 -> ws 3 or 1002
+    "apostrophe", -- 3 -> ws 4 or 1003
+    "parenleft",  -- 4 -> ws 5 or 1004
+    "minus",      -- 5 -> ws 6 or 1005
+    "egrave",     -- 6 -> ws 7 or 1006
+    "underscore", -- 7 -> ws 8 or 1007
+    "ccedilla",   -- 8 -> ws 9 or 1008
+    "agrave",     -- 9 -> ws 10 or 1009
 }
 
 for i, key in ipairs(azerty_keys) do
@@ -143,10 +162,17 @@ for i, key in ipairs(azerty_keys) do
     end)
 end
 
-hl.bind(mainMod .. " + CTRL + right", hl.dsp.focus({ workspace = "r+1" }))
-hl.bind(mainMod .. " + CTRL + left", hl.dsp.focus({ workspace = "r-1" }))
-hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ workspace = "r+1" }))
-hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ workspace = "r-1" }))
+-- Workspace navigation
+hl.bind(mainMod .. " + CTRL + h", hl.dsp.focus({ workspace = "r-1" }))
+hl.bind(mainMod .. " + CTRL + l", hl.dsp.focus({ workspace = "r+1" }))
+
+hl.bind(mainMod .. " + CTRL + SHIFT + h", hl.dsp.window.move({ workspace = "r-1" }))
+hl.bind(mainMod .. " + CTRL + SHIFT + l", hl.dsp.window.move({ workspace = "r+1" }))
+
+-- hl.bind(mainMod .. " + CTRL + left", hl.dsp.focus({ workspace = "r-1" }))
+-- hl.bind(mainMod .. " + CTRL + right", hl.dsp.focus({ workspace = "r+1" }))
+-- hl.bind(mainMod .. " + CTRL + SHIFT + left", hl.dsp.window.move({ workspace = "r-1" }))
+-- hl.bind(mainMod .. " + CTRL + SHIFT + right", hl.dsp.window.move({ workspace = "r+1" }))
 
 
 -- Apps
@@ -170,9 +196,6 @@ hl.bind("ALT + PRINT", screenshot.capture_window_screenshot)
 hl.bind(mainMod .. " + PRINT", screenshot.edit_latest_screenshot)
 hl.bind(mainMod .. " + SHIFT + PRINT", screenshot.capture_fullscreen_and_edit_screenshot)
 
-local media_opts = { locked = true, repeating = true }
-local locked     = { locked = true }
-
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(media_feedback .. " volume 5%+"), media_opts)
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(media_feedback .. " volume 5%-"), media_opts)
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(media_feedback .. " volume mute-toggle"), locked)
@@ -184,14 +207,9 @@ hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("wpaperctl next-wallpaper"))
 hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd(media_feedback .. " dnd toggle"))
 
 
--- Media
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("playerctl next"), locked)
-hl.bind(mainMod .. " + CTRL + SHIFT + L", hl.dsp.exec_cmd("playerctl position 20+"), locked)
-hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("playerctl play-pause"), locked)
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd("playerctl previous"), locked)
-hl.bind(mainMod .. " + CTRL + SHIFT + H", hl.dsp.exec_cmd("playerctl position 20-"), locked)
-
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), locked)
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), locked)
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), locked)
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), locked)
+-- Media (SUPER+MOD5 / AltGr)
+hl.bind(mainMod .. " + " .. altgr .. " + h", hl.dsp.exec_cmd("playerctl previous"), locked)
+hl.bind(mainMod .. " + " .. altgr .. " + j", hl.dsp.exec_cmd("playerctl play-pause"), locked)
+hl.bind(mainMod .. " + " .. altgr .. " + l", hl.dsp.exec_cmd("playerctl next"), locked)
+hl.bind(mainMod .. " + " .. altgr .. " + SHIFT + h", hl.dsp.exec_cmd("playerctl position 20-"), locked)
+hl.bind(mainMod .. " + " .. altgr .. " + SHIFT + l", hl.dsp.exec_cmd("playerctl position 20+"), locked)
