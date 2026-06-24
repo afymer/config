@@ -6,8 +6,8 @@ hl.config({
         no_focus_fallback = true,
         resize_on_border  = false,
         allow_tearing     = false,
-        layout            = "master",
-        -- layout            = "dwindle"
+        -- layout            = "master",
+        layout            = "dwindle"
     },
 
     misc = {
@@ -55,6 +55,7 @@ hl.config({
 
     dwindle = {
         preserve_split = true,
+        force_split = 2,
     },
 
     input = {
